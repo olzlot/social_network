@@ -1,0 +1,29 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.App {
+  display: grid;
+  width: 80vw;
+  margin: 0 auto;
+  grid-template-columns: 20% 80%;
+  grid-template-rows: 50px 1fr;
+  grid-template-areas:
+    "header header"
+    "nav mainContent";
+  background-color: rgb(232, 232, 232);
+}
+
+.content {
+  grid-area: mainContent;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+  background-color: white;
+  padding: 20px;
+} 
+
+

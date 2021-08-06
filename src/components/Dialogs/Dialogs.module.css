@@ -1,0 +1,13 @@
+.dialogsWrapper{
+    display: grid;
+    grid-template-columns: 3fr 9fr;
+}
+
+.dialog a{
+    text-decoration: none;
+    color: black;
+}
+
+.dialog a.active{
+    font-weight: bolder;
+}

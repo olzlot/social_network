@@ -1,0 +1,26 @@
+
+.nav {
+  grid-area: nav;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+}
+
+.item{
+  margin-bottom: 5px;
+}
+
+.item a {
+  text-decoration: none;
+  color: black;
+}
+
+a.active{
+  font-weight: 600;
+}
+
+.item a:hover{
+  font-weight: 600;
+}

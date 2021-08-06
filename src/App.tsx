@@ -1,25 +1,32 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Route} from 'react-router-dom';
+import s from './App.module.css';
+import Dialogs from './components/Dialogs/Dialogs';
 
-function App() {
+import Header from './components/Header/Header';
+import NavBar from './components/NavBar/NavBar';
+import Profile from './components/Profile/Profile';
+import { StoreType } from './redux/store';
+ 
+type AppPropsType = {
+  store: StoreType
+}
+
+function App(props: AppPropsType) {
+
+  const state = props.store.getState() 
+  const {dialogsPage, profilePage, sidebar} = state
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+   
+      <div className={s.App}>
+        <Header />
+        <NavBar sidebar={sidebar}/>
+        <div className={s.content}>
+          <Route path='/profile' render={() => <Profile data={profilePage} dispatch={props.store.dispatch.bind(props.store)}/>}/>
+          <Route path='/dialogs' render={() => <Dialogs data={dialogsPage} dispatch={props.store.dispatch.bind(props.store)}/>}/>
+        </div>
+      </div>
   );
 }
 
