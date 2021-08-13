@@ -1,7 +1,5 @@
-import React from "react";
 import { NavLink } from "react-router-dom";
-import { SidebarPageType } from "../../redux/sidebarReducer";
-import { MyFriends } from "./MyFriends/MyFriends";
+import { MyFriendsContainer } from "./MyFriends/MyFriendsContainer";
 import s from "./NavBar.module.css"
 
 
@@ -20,13 +18,9 @@ function NavItem(props: NavItemPropsType) {
 
 }
 
-export type NavBarType = {
-  sidebar: SidebarPageType
-}
 
-const NavBar: React.FC<NavBarType> = ({
-  sidebar, ...restProps
-}) => {
+
+const NavBar = () => {
   return (
     <nav className={s.nav}>
       <div>
@@ -36,7 +30,7 @@ const NavBar: React.FC<NavBarType> = ({
         <NavItem link={'Music'} to={'/music'} />
         <NavItem link={'Settings'} to={'/settings'} />
       </div>
-        <MyFriends friends={sidebar.myFriendsList}>Here are my friends</MyFriends>
+        <MyFriendsContainer/>
     </nav>
   );
 }

@@ -1,6 +1,4 @@
-import { addNewMsgAC, changeNewMsgTextAC } from '../../redux/dialogsReducer'
 import { DialogsPageType } from '../../redux/dialogsReducer'
-import { ActionsType } from '../../redux/store'
 import { TextareaMsg } from '../common/TexteareaSuper/TextareaMsg'
 import DialogItem from './Dialog/Dialog'
 import s from './Dialogs.module.css'
@@ -10,7 +8,8 @@ import Message from './Message/Message'
 
 type DialogsPropsType = {
     data: DialogsPageType
-    dispatch: (action: ActionsType) => void
+    onAddMsg: (checked: boolean) => void
+    onChangeCallback: (text: string) => void
 }
 
 
@@ -21,13 +20,8 @@ function Dialogs(props: DialogsPropsType) {
     const dialogsElements = dialogs.map(d => <DialogItem key={d.id} id={d.id} name={d.name} />)
     const messageElements = messages.map(m => <Message key={m.id} id={m.id} isMe={m.isMe} message={m.message} />)
 
-    const addMsgHandler = (checked: boolean = false) => {
-        props.data.inputValue.trim() && props.dispatch(addNewMsgAC(checked))
-
-    }
-    const onChangeCallback = (text: string) => {
-        props.dispatch(changeNewMsgTextAC(text))
-    }
+    const addMsgHandler = (checked: boolean = false) => props.onAddMsg(checked)
+    const onChangeCallback = (text: string) => props.onChangeCallback(text)
 
     return (
         <div className={s.dialogsWrapper}>

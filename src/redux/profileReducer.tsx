@@ -14,24 +14,19 @@ export type ProfilePageType = {
     inputValue: string
 }
 
-type AddPostActionType = {
-    type: typeof ADD_POST
-}
-type ChangePostTextActionType = {
-    type: typeof CHANGE_POST_TEXT,
-    text: string
-}
+type AddPostActionType = ReturnType<typeof addPostAC>
+type ChangePostTextActionType = ReturnType<typeof changePostTextAC>
 
 export type ProfilePageActionsType = AddPostActionType | ChangePostTextActionType
 
-export function addPostAC(): AddPostActionType {
-    return { type: ADD_POST };
+export function addPostAC() {
+    return { type: ADD_POST } as const
 }
-export function changePostTextAC(text: string): ChangePostTextActionType {
+export function changePostTextAC(text: string) {
     return {
         type: CHANGE_POST_TEXT,
         text
-    };
+    } as const
 }
 
 const initialState: ProfilePageType = {
@@ -52,12 +47,12 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
                 ...state,
                 posts: [newPost, ...state.posts],
                 inputValue: ''
-            }
+            } 
         }
         case CHANGE_POST_TEXT: {
             state.inputValue = action.text
             return state
-        }
+        } 
         default: return state
     }
 }

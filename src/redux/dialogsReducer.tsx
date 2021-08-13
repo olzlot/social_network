@@ -20,19 +20,13 @@ export type DialogsPageType = {
     inputValue: string
 }
 
-type AddNewMsgActionType = {
-    type: typeof ADD_NEW_MSG
-    checked: boolean
-}
-type ChangeNewMsgActionType = {
-    type: typeof CHANGE_NEW_MSG_TEXT
-    text: string
-} 
+type AddNewMsgActionType = ReturnType<typeof addNewMsgAC>
+type ChangeNewMsgActionType = ReturnType<typeof changeNewMsgTextAC>
 
 export type DialogsPageActionsType = AddNewMsgActionType | ChangeNewMsgActionType
 
-export const addNewMsgAC = (checked:boolean): AddNewMsgActionType => ({type: ADD_NEW_MSG, checked: checked})
-export const changeNewMsgTextAC = (text: string): ChangeNewMsgActionType => ({type: CHANGE_NEW_MSG_TEXT,  text})
+export const addNewMsgAC = (checked:boolean) => ({type: ADD_NEW_MSG, checked: checked}) as const
+export const changeNewMsgTextAC = (text: string) => ({type: CHANGE_NEW_MSG_TEXT,  text}) as const
 
 const initialState: DialogsPageType = {
     dialogs: [
@@ -61,7 +55,7 @@ export const dialogsReducer = (state: DialogsPageType = initialState, action: Ac
                     {   id:v1(), message: state.inputValue, isMe: action.checked}
                 ],
                 inputValue: ''
-            }
+            } 
             
            
         }    
@@ -69,7 +63,7 @@ export const dialogsReducer = (state: DialogsPageType = initialState, action: Ac
             return  {
                 ...state,
                 inputValue: action.text
-            }
+            } as const
         }    
 
     

@@ -1,7 +1,8 @@
 import React from "react";
+import { store } from "./store";
 
 
-const StoreContext = React.createContext(null)
+export const StoreContext = React.createContext(store)
 
 // type ContextType = typeof StoreContext
 

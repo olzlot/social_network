@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { store } from './redux/store';
 import { BrowserRouter } from 'react-router-dom';
+import { Provider } from './redux/StoreContext';
 // import state, { addNewPost, AppStateType, changeValue, subcriber } from './redux/state';
 
 
@@ -22,9 +23,11 @@ export const reRender = () => {
     ReactDOM.render(
         <React.StrictMode>
             <BrowserRouter>
-                <App store={store} />
-                {/* <App state={state} changeValue={store.changeValue.bind(store)} addNewPost={() => store.addNewPost()} /> */}
-                {/*                changeValue={(post) => store.ChangeValue(post)}          ОДИН ЭФФЕКТ                     ОДИН ЭФФЕКТ */}
+                <Provider store={store}>
+                    <App />
+                    {/* <App state={state} changeValue={store.changeValue.bind(store)} addNewPost={() => store.addNewPost()} /> */}
+                    {/*                changeValue={(post) => store.ChangeValue(post)}          ОДИН ЭФФЕКТ                     ОДИН ЭФФЕКТ */}
+                </Provider>
             </BrowserRouter>
         </React.StrictMode>,
         document.getElementById('root')
