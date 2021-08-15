@@ -1,6 +1,6 @@
 import { v1 } from "uuid";
-import {  ActionsType } from "./store";
- 
+import { ActionsType } from "./store";
+
 export const ADD_POST = 'ADD-POST'
 export const CHANGE_POST_TEXT = 'CHANGE-POST-TEXT'
 
@@ -30,29 +30,36 @@ export function changePostTextAC(text: string) {
 }
 
 const initialState: ProfilePageType = {
-            posts: [
-                { id: v1(), message: 'My first POST' },
-                { id: v1(), message: 'Hi!!!' },
-                { id: v1(), message: 'How are you' },
-                { id: v1(), message: 'dsfsdf' }
-            ],
-            inputValue: ""
-        }
+    posts: [
+        { id: v1(), message: 'My first POST' },
+        { id: v1(), message: 'Hi!!!' },
+        { id: v1(), message: 'How are you' },
+        { id: v1(), message: 'dsfsdf' }
+    ],
+    inputValue: ""
+}
 
 export const profileReducer = (state: ProfilePageType = initialState, action: ActionsType): ProfilePageType => {
     switch (action.type) {
         case ADD_POST: {
-            const newPost = { id: v1(), message: state.inputValue }
-            return {
-                ...state,
-                posts: [newPost, ...state.posts],
-                inputValue: ''
-            } 
+            if (state.inputValue.trim()) {
+                const newPost = { id: v1(), message: state.inputValue }
+                return {
+                    ...state,
+                    posts: [newPost, ...state.posts],
+                    inputValue: ''
+                }
+            } else {
+                return state
+            }
         }
         case CHANGE_POST_TEXT: {
-            state.inputValue = action.text
-            return state
-        } 
+            // state.inputValue = action.text
+            return {
+                ...state,
+                inputValue: action.text
+            }
+        }
         default: return state
     }
 }

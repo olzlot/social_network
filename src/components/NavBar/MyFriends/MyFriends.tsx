@@ -37,7 +37,7 @@ export const MyFriends: React.FC<MyFriendPropsType> = ({ friends, children }) =>
 
         <div style={MyFriendsWrapper}>
             <p>
-                {children}
+                Here are my friends
             </p>
             {frindsListForShow}
         </div>

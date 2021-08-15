@@ -1,6 +1,6 @@
 import { Route} from 'react-router-dom';
 import s from './App.module.css';
-import DialogsContainer from './components/Dialogs/DialogsContainer';
+import {DialogsContainer} from './components/Dialogs/DialogsContainer';
 
 import Header from './components/Header/Header';
 import NavBar from './components/NavBar/NavBar';
