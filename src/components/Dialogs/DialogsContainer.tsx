@@ -40,6 +40,8 @@ type MapDispatchToPropsType = {
     onChangeCallback: (text: string) => void
 }
 
+export type DialogsPropsType = MapStateToPropsType & MapDispatchToPropsType
+
 const MapStateToProps = (state: AppStateType): MapStateToPropsType => ({
     data: state.dialogsPage
 })

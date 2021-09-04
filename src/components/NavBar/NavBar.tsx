@@ -26,6 +26,7 @@ const NavBar = () => {
       <div>
         <NavItem link={'Profile'} to={'/profile'} />
         <NavItem link={'Messages'} to={'/dialogs'} />
+        <NavItem link={'Users'} to={'/users'} />
         <NavItem link={'News'} to={'/news'} />
         <NavItem link={'Music'} to={'/music'} />
         <NavItem link={'Settings'} to={'/settings'} />

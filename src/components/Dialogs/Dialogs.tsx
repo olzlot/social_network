@@ -2,15 +2,16 @@ import { DialogsPageType } from '../../redux/dialogsReducer'
 import { TextareaMsg } from '../common/TexteareaSuper/TextareaMsg'
 import DialogItem from './Dialog/Dialog'
 import s from './Dialogs.module.css'
+import { DialogsPropsType } from './DialogsContainer'
 import Message from './Message/Message' 
 
 
 
-type DialogsPropsType = {
-    data: DialogsPageType
-    onAddMsg: (checked: boolean) => void
-    onChangeCallback: (text: string) => void
-}
+// type DialogsPropsType = {
+//     data: DialogsPageType
+//     onAddMsg: (checked: boolean) => void
+//     onChangeCallback: (text: string) => void
+// }
 
 
 function Dialogs(props: DialogsPropsType) {
