@@ -1,16 +1,16 @@
 import { useEffect } from "react"
 import { User } from "./User"
-import { UsersClassComponentPropsType } from "./UsersContainer"
+import { UsersClassComponentFromConnectPropsType } from "./UsersContainer"
 import axios from 'axios'
 import { UserType } from "../../redux/usersReducer" 
-
+ 
 type UsersResponseDataType = {
     items: UserType[]
     totalCount: number
     error:string
 }
 
-export const UserFC: React.FC<UsersClassComponentPropsType> = ({
+export const UserFC: React.FC<UsersClassComponentFromConnectPropsType> = ({
     follow, unFollow, users, getUsers, ...rest
 }) => {
 
