@@ -9,9 +9,10 @@ type PaginationPropstype = {
     pageCount?: number
     marginPagesDisplayed?: number
     pageRangeDisplayed?: number
-    onPageChange: (value:any) => void
+    onPageChange: (value: any) => void
     containerClassName?: string
     activeClassName?: string
+    initialPage?: number
 }
 
 export const Pagination: React.FC<PaginationPropstype> = ({
@@ -23,9 +24,12 @@ export const Pagination: React.FC<PaginationPropstype> = ({
     marginPagesDisplayed = 3,
     pageRangeDisplayed = 5,
     onPageChange,
+    initialPage,
 }) => {
+    // debugger
     return (
         <ReactPaginate
+        forcePage={initialPage}
             previousLabel={previousLabel}
             nextLabel={nextLabel}
             breakLabel={breakLabel}

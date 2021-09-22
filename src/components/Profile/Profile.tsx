@@ -1,5 +1,5 @@
 import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
-import ProfileInfo from "./ProfileInfo/ProfileInfo";
+// import ProfileInfo from "./ProfileInfo/ProfileInfo";
 
 
 
@@ -7,8 +7,7 @@ import ProfileInfo from "./ProfileInfo/ProfileInfo";
 function Profile() {
     return (
         <div>
-            <ProfileInfo/>
-            <MyPostsContainer/>
+            <MyPostsContainer/> 
         </div>
     )
 }

@@ -1,23 +1,46 @@
 import React from "react";
+import { UserProfileType } from "../../../redux/profileReducer";
+import { Spinner } from "../../common/Spinner/Spinner";
 import s from './ProfileInfo.module.css';
+import userPhoto from './../../../assets/images/userLogo.png'
 
-function ProfileInfo() {
+type ProfileInfoPropsType = {
+    profile: UserProfileType
+}
+
+function ProfileInfo(props: ProfileInfoPropsType) {
+
+    const { userId, lookingForAJob, lookingForAJobDescription, fullName, contacts, photos } = props.profile
+    // console.log(props.profile);
+
+    if(!photos) {
+        return <div>12312312312312</div> 
+    }
+
     return (
         <>
-            <div className={s.img}>
-                <img src="https://images.freeimages.com/images/small-previews/2ae/bokeh-background-in-light-tan-rose-1635915.jpg" alt="" />
-            </div>
-            <div className={s.info}>
+            {/* {!photos && <Spinner />} */}
+            {
+                photos &&
+                <>
+                    <div className={s.img}>
+                        <img src="https://images.freeimages.com/images/small-previews/2ae/bokeh-background-in-light-tan-rose-1635915.jpg" alt="" />
+                    </div>
+                    <div className={s.info}>
 
-                <div className={s.avatar}>
-                    <img src="https://sun9-87.userapi.com/c10241/u1588801/a_41df6501.jpg" alt="avatar" />
-                </div>
-                <ul>
-                    <li>despr1</li>
-                    <li>despr2</li>
-                    <li>despr3</li>
-                </ul>
-            </div>
+                        <div className={s.avatar}>
+                            <img src={photos.large !== null ? photos.large : userPhoto} alt="avatar" />
+                        </div>
+                        <div>
+                            {fullName}
+                            <ul>
+                                <li>despr1</li>
+                                <li>despr2</li>
+                                <li>despr3</li>
+                            </ul>
+                        </div>
+                    </div>
+                </>}
         </>
     )
 }

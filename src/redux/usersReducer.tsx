@@ -3,6 +3,7 @@ const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
 const GET_USERS = 'GET_USERS'
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
+const TOOGLE_SPINNER = 'TOOGLE_SPINNER'
 
 
 
@@ -20,9 +21,11 @@ const initialState = {
     users: [] as UserType[],
     totalCount: 0,
     currentPage: 1,
+    isFetching: false
 }
 
-type ActionsType = ReturnType<typeof followAC> | ReturnType<typeof unFollowAC> | ReturnType<typeof getUsersAC>| ReturnType<typeof setCurrentPage>
+type ActionsType = ReturnType<typeof followAC> | ReturnType<typeof unFollowAC> | ReturnType<typeof getUsersAC>
+    | ReturnType<typeof setCurrentPage> | ReturnType<typeof toogleSpinner>
 
 export const followAC = (userId: number) => (
     { type: FOLLOW, userId } as const
@@ -32,14 +35,20 @@ export const unFollowAC = (userId: number) => (
 )
 export const getUsersAC = (users: UserType[], totalCount: number) => (
     {
-        type: GET_USERS, 
-        payload: {users, totalCount}
+        type: GET_USERS,
+        payload: { users, totalCount }
     } as const
 )
 export const setCurrentPage = (currentPage: number) => (
     {
-        type: SET_CURRENT_PAGE, 
-        payload: {currentPage}
+        type: SET_CURRENT_PAGE,
+        payload: { currentPage }
+    } as const
+)
+export const toogleSpinner = (isFetching: boolean) => (
+    {
+        type: TOOGLE_SPINNER,
+        payload: { isFetching }
     } as const
 )
 
@@ -52,15 +61,22 @@ export const usersReducer = (state: InitialStateType = initialState, action: Act
             return { ...state, users: state.users.map(u => u.id === action.userId ? { ...u, followed: false } : u) }
         }
         case GET_USERS: {
-            return { 
-                ...state, 
+            return {
+                ...state,
                 ...action.payload
                 // users: [...state.users, ...action.users] 
             }
         }
         case SET_CURRENT_PAGE: {
-            return { 
-                ...state, 
+            return {
+                ...state,
+                ...action.payload
+                // users: [...state.users, ...action.users] 
+            }
+        }
+        case TOOGLE_SPINNER: {
+            return {
+                ...state,
                 ...action.payload
                 // users: [...state.users, ...action.users] 
             }

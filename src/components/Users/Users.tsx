@@ -1,4 +1,5 @@
 import { Pagination } from "../common/Pagination/Pagination"
+import { Spinner } from "../common/Spinner/Spinner"
 import { User } from "./User"
 import { UsersClassComponentFromConnectPropsType } from "./UsersContainer"
 
@@ -12,12 +13,14 @@ type UsersPropsTypes = UsersClassComponentFromConnectPropsType & UsersContainerP
 
 
 export const Users = (props: UsersPropsTypes) => {
-    const { follow, unFollow, users, getUsers,usersCountOnPageChange, changePage, ...rest } = props
+    const { follow, unFollow, users, getUsers, usersCountOnPageChange, changePage, isFetching, currentPage, ...rest } = props
     console.log('UUUU');
-    
+
     return (
         <>
-                'USERS PAGE CLASS' {/* /<CLASS> */}
+            <>
+                `USERS PAGE CLASS `
+                {props.currentPage}
                 <div>
                     total pages: {Math.ceil(props.totalCount / props.pageSize)}
                     <div>
@@ -33,12 +36,21 @@ export const Users = (props: UsersPropsTypes) => {
                 <Pagination
                     onPageChange={changePage}
                     pageCount={Math.ceil(props.totalCount / props.pageSize)}
-
+                    initialPage={currentPage - 1}
                 />
 
-                {users.map(u => <User key={u.id} data={u} follow={follow} unFollow={unFollow} />)}
+                {isFetching && <Spinner />}
+                {!isFetching &&
+                    users.map(u => <User key={u.id} data={u} follow={follow} unFollow={unFollow} />)
 
+                }
                 {JSON.stringify(users)}
+                <Pagination
+                    onPageChange={changePage}
+                    pageCount={Math.ceil(props.totalCount / props.pageSize)}
+                    initialPage={currentPage - 1}
+                />
             </>
+        </>
     )
 }
