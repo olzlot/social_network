@@ -1,5 +1,6 @@
+import React from 'react'
 import { connect } from 'react-redux'
-import { Dispatch } from 'redux'
+import { compose, Dispatch } from 'redux'
 import { addNewMsgAC, changeNewMsgTextAC, DialogsPageType } from '../../redux/dialogsReducer'
 import { AppStateType } from '../../redux/store'
 import withLoginRedirect from '../common/hoc/Redirect/withLoginRedirect'
@@ -51,4 +52,8 @@ const MapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => ({
     onChangeCallback: (text: string) => dispatch(changeNewMsgTextAC(text))
 })
 
-export const DialogsContainer = withLoginRedirect(connect(MapStateToProps, MapDispatchToProps)(Dialogs))
+
+export const DialogsContainer = compose<React.ComponentType>(
+    withLoginRedirect,
+    connect(MapStateToProps, MapDispatchToProps))
+    (Dialogs)

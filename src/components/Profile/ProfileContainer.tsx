@@ -8,6 +8,7 @@ import { AppStateType } from "../../redux/store";
 import { askForUserProfile, setUserProfile, UserProfileType } from "../../redux/profileReducer";
 import { profileAPI } from "../../api/social_api";
 import withLoginRedirect from "../common/hoc/Redirect/withLoginRedirect";
+import { compose } from "redux";
 
 type PathParamsType = {
     userId: string
@@ -71,4 +72,9 @@ const connector = connect(MSTP, { setUserProfile , askForUserProfile})
 
 type ConnectedType = ConnectedProps<typeof connector>
 
-export default withLoginRedirect(connector(withRouter(ProfileContainer)))
+export default compose<React.ComponentType>(
+    withLoginRedirect,
+    connector,
+    withRouter
+)(ProfileContainer)
+// withLoginRedirect(connector(withRouter(ProfileContainer)))
