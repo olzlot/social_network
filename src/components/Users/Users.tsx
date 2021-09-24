@@ -14,7 +14,6 @@ type UsersPropsTypes = UsersClassComponentFromConnectPropsType & UsersContainerP
 
 export const Users = (props: UsersPropsTypes) => {
     const { follow, unFollow, users, getUsers, usersCountOnPageChange, changePage, isFetching, currentPage, ...rest } = props
-    console.log('UUUU');
 
     return (
         <>

@@ -44,3 +44,14 @@ export const profileAPI = {
     }
 }
 
+export const followAPI = {
+    unfollow: (userId: number) => {
+        return axiosInstance.delete(`follow/${userId}`)
+    },
+    follow: (userId: number) => {
+        return axiosInstance.post(`follow/${userId}`, {})
+    }
+}
+
+
+

@@ -1,37 +1,37 @@
-import { useEffect } from "react"
+// import { useEffect } from "react"
 import { User } from "./User"
 import { UsersClassComponentFromConnectPropsType } from "./UsersContainer"
-import axios from 'axios'
-import { UserType } from "../../redux/usersReducer" 
+// import axios from 'axios'
+// import { UserType } from "../../redux/usersReducer" 
  
-type UsersResponseDataType = {
-    items: UserType[]
-    totalCount: number
-    error:string
-}
+// type UsersResponseDataType = {
+//     items: UserType[]
+//     totalCount: number
+//     error:string
+// }
 
 export const UserFC: React.FC<UsersClassComponentFromConnectPropsType> = ({
     follow, unFollow, users, getUsers, ...rest
 }) => {
 
-const redirect = () => {
-    window.location.replace('/HAKUNAMATATA')
-}
+// const redirect = () => {
+//     window.location.replace('/HAKUNAMATATA')
+// }
 
-    useEffect(() => {
+//     useEffect(() => {
      
-        axios
-            .get<UsersResponseDataType>('https://social-network.samuraijs.com/api/1.0/users')
-            .then((response) => getUsers(response.data.items, +response.data.totalCount))
-            .catch(redirect)
-    }, [])
+//         axios
+//             .get<UsersResponseDataType>('https://social-network.samuraijs.com/api/1.0/users')
+//             .then((response) => getUsers(response.data.items, +response.data.totalCount))
+//             .catch(redirect)
+//     }, [])
 
     return (
         <>
-            USERS PAGE
-            {users.map(u => <User key={u.id} data={u} follow={follow} unFollow={unFollow} />)}
+{/* //             USERS PAGE
+//             {users.map(u => <User key={u.id} data={u} follow={follow} unFollow={unFollow} />)}
 
-            {JSON.stringify(users)}
+//             {JSON.stringify(users)} */}
         </>
     )
 }

@@ -1,3 +1,5 @@
+import { Dispatch } from "react"
+import { authAPI, profileAPI } from "../api/social_api"
 
 
 export enum AuthActionTypes {
@@ -18,10 +20,14 @@ type InitialStateType = {
 }
 
 const initialState: InitialStateType = {
-    user: {} as UserAuthDataType,
+    user: {
+        id: 1,
+        email: "string",
+        login: "string",
+    },
     photo: null,
     isAuth: false
-} 
+}
 
 type ActionsType = ReturnType<typeof authUser> | ReturnType<typeof setUsersPhoto>
 
@@ -32,14 +38,33 @@ export const setUsersPhoto = (logo: string | null) => (
     { type: AuthActionTypes.SET_AUTH_USER_PHOTO, logo } as const
 )
 
+export const authMe = () => (dispatch: Dispatch<ActionsType>) => {
+    authAPI.authMe()
+        .then((res) => {
+            if (res.data.resultCode === 0) {
+                dispatch(authUser(res.data.data))
+                profileAPI.getProfile(res.data.data.id)
+                    .then(res => dispatch(setUsersPhoto(res.data.photos.small)))
+            }
+        })
+        .catch((err) => { console.log(err) })
+}
+
+
 export const authReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case AuthActionTypes.SET_AUTH_USER_DATA:
             return {
                 ...state,
-                user: {...action.data},
+                // -------------ВОТ ТУТ ВОПРОС, почему не ругается
+                // так должно быть
+                user: { ...action.data },
+                // так тоже не ругается
+                // ...action.data,
                 isAuth: true,
+               
             }
+
         case AuthActionTypes.SET_AUTH_USER_PHOTO:
             return {
                 ...state,

@@ -5,8 +5,9 @@ import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import React from "react";
 import { connect, ConnectedProps } from "react-redux";
 import { AppStateType } from "../../redux/store";
-import { setUserProfile, UserProfileType } from "../../redux/profileReducer";
+import { askForUserProfile, setUserProfile, UserProfileType } from "../../redux/profileReducer";
 import { profileAPI } from "../../api/social_api";
+import withLoginRedirect from "../common/hoc/Redirect/withLoginRedirect";
 
 type PathParamsType = {
     userId: string
@@ -21,11 +22,12 @@ class ProfileContainer extends React.Component<PropsType>{
 
     updateProfile() {
         let userId = this.props.match.params.userId || this.props.myID
-
-        profileAPI.getProfile(Number(userId))
-            // axios
-            //     .get<ProfileResponseDataType>(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
-            .then((res) => this.props.setUserProfile(res.data))
+        
+        this.props.askForUserProfile(Number(userId))
+        // profileAPI.getProfile(Number(userId))
+        //     // axios
+        //     //     .get<ProfileResponseDataType>(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
+        //     .then((res) => this.props.setUserProfile(res.data))
     }
 
     componentDidMount() {
@@ -65,8 +67,8 @@ const MSTP = (state: AppStateType): MstpType => ({
 })
 
 
-const connector = connect(MSTP, { setUserProfile })
+const connector = connect(MSTP, { setUserProfile , askForUserProfile})
 
 type ConnectedType = ConnectedProps<typeof connector>
 
-export default connector(withRouter(ProfileContainer))
+export default withLoginRedirect(connector(withRouter(ProfileContainer)))

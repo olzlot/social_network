@@ -1,3 +1,5 @@
+import { Dispatch } from "react"
+import { followAPI, usersAPI } from "../api/social_api"
 
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
@@ -24,13 +26,13 @@ const initialState = {
     isFetching: false
 }
 
-type ActionsType = ReturnType<typeof followAC> | ReturnType<typeof unFollowAC> | ReturnType<typeof getUsersAC>
+type ActionsType = ReturnType<typeof followSucces> | ReturnType<typeof unFollowSucces> | ReturnType<typeof getUsersAC>
     | ReturnType<typeof setCurrentPage> | ReturnType<typeof toogleSpinner>
 
-export const followAC = (userId: number) => (
+export const followSucces = (userId: number) => (
     { type: FOLLOW, userId } as const
 )
-export const unFollowAC = (userId: number) => (
+export const unFollowSucces = (userId: number) => (
     { type: UNFOLLOW, userId } as const
 )
 export const getUsersAC = (users: UserType[], totalCount: number) => (
@@ -51,6 +53,36 @@ export const toogleSpinner = (isFetching: boolean) => (
         payload: { isFetching }
     } as const
 )
+
+export const follow = (id: number) => (dispatch: Dispatch<ReturnType<typeof followSucces>>) => {
+    return followAPI.follow(id)
+        .then(res => {
+            if (res.data.resultCode === 0) {
+                dispatch(followSucces(id))
+            }
+        })
+}
+
+export const unFollow = (id: number) => (dispatch: Dispatch<ReturnType<typeof unFollowSucces>>) => {
+    return followAPI.unfollow(id)
+        .then(res => {
+            if (res.data.resultCode === 0) {
+                dispatch(unFollowSucces(id))
+            }
+        })
+}
+
+
+export const getUsers = (pageSize: number, currentPage: number, redirect: any) => (dispatch: Dispatch<any>) => {
+    dispatch(toogleSpinner(true))
+
+    usersAPI.getUsers(pageSize, currentPage)
+        .then((response) => {
+            dispatch(getUsersAC(response.data.items, response.data.totalCount))
+        })
+        .catch(redirect)
+        .finally(() => dispatch(toogleSpinner(false)))
+}
 
 export const usersReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {

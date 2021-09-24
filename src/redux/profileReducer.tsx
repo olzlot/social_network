@@ -1,4 +1,6 @@
+import { Dispatch } from "react";
 import { v1 } from "uuid";
+import { profileAPI } from "../api/social_api";
 import { ActionsType } from "./store";
 
 export const ADD_POST = 'ADD-POST'
@@ -87,6 +89,11 @@ export const setUserProfile = (profile: UserProfileType) => {
         type: SET_USER_PROFILE,
         payload: profile
     } as const
+}
+
+export const askForUserProfile = (userId: number) => (dispatch:Dispatch<any>) => {
+    profileAPI.getProfile(Number(userId))
+            .then((res) => dispatch(setUserProfile(res.data)))
 }
 
 

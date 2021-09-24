@@ -1,14 +1,15 @@
 import axios from "axios";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { followAPI } from "../../api/social_api";
 import { UserType } from "../../redux/usersReducer";
 import userPhoto from './../../assets/images/userLogo.png'
 
 
 type UserPropsType = {
     data: UserType
-    follow: (id: number) => void
-    unFollow: (id: number) => void
+    follow: (id: number) => Promise<any>
+    unFollow: (id: number) => Promise<any>
 }
 
 
@@ -30,35 +31,14 @@ export const User = (props: UserPropsType) => {
                     {followed
                         ? <button disabled={disabled} onClick={() => {
                             setDisabled(true)
-                            axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${id}`,
-                                {
-                                    withCredentials: true,
-                                    headers: {
-                                        'API-KEY': 'e7555453-e0c0-4326-99ca-77f39255724e'
-                                    }
-                                })
-                                .then(res => {
-                                    if (res.data.resultCode === 0) {
-                                        props.unFollow(id)
-                                    }
-                                })
-                                .finally(()=> setDisabled(false))
+                            props.unFollow(id)
+                                .finally(() => setDisabled(false))
                         }}>UNFOLLOW</button>
                         : <button disabled={disabled} onClick={() => {
                             setDisabled(true)
-                            axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${id}`, {},
-                                {
-                                    withCredentials: true,
-                                    headers: {
-                                        'API-KEY': 'e7555453-e0c0-4326-99ca-77f39255724e'
-                                    }
-                                })
-                                .then(res => {
-                                    if (res.data.resultCode === 0) {
-                                        props.follow(id)
-                                    } 
-                                })
-                                .finally(()=> setDisabled(false))
+
+                            props.follow(id)
+                                .finally(() => setDisabled(false))
                         }}>FOLLOW</button>
                     }
                     {/* <button onClick={followToogleHandler}

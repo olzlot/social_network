@@ -1,6 +1,6 @@
 import React from "react"
 import { connect, ConnectedProps } from "react-redux"
-import { authUser, setUsersPhoto } from "../../redux/authReducer"
+import { authMe, authUser, setUsersPhoto } from "../../redux/authReducer"
 import { AppStateType } from "../../redux/store"
 import styles from "./Header.module.css"
 import userPhoto from './../../assets/images/userLogo.png'
@@ -20,18 +20,19 @@ class HeaderContainer extends React.Component<HeaderContainerPropsTypes> {
     // axios.get<AuthResponceDataType>(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
     //   withCredentials: true
     // })
-    authAPI.authMe()
-      .then((res) => {
-        if (res.data.resultCode === 0) {
-          this.props.authUser(res.data.data)
-          // axios.get<UserProfileType>(`https://social-network.samuraijs.com/api/1.0/ /profile/${res.data.data.id}`)
-          profileAPI.getProfile(res.data.data.id)
-            .then(res => this.props.setUsersPhoto(res.data.photos.small))
-        }
-      })
-      .catch((err) => { console.log(err) })
+    // authAPI.authMe()
+    //   .then((res) => {
+    //     if (res.data.resultCode === 0) {
+    //       this.props.authUser(res.data.data)
+    //       // axios.get<UserProfileType>(`https://social-network.samuraijs.com/api/1.0/ /profile/${res.data.data.id}`)
+    //       profileAPI.getProfile(res.data.data.id)
+    //         .then(res => this.props.setUsersPhoto(res.data.photos.small))
+    //     }
+    //   })
+    //   .catch((err) => { console.log(err) })
+    this.props.authMe()
   }
-
+ 
 
   render() {
 
@@ -64,7 +65,7 @@ const mapStateToProps = (state: AppStateType) => ({
   // userPhoto: state.profilePage.profile.photos.small 
 })
 
-const connector = connect(mapStateToProps, { authUser, setUsersPhoto })
+const connector = connect(mapStateToProps, {authMe })
 
 type HeaderContainerPropsTypes = ConnectedProps<typeof connector>
 
